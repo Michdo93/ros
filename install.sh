@@ -23,6 +23,11 @@ rosdep install -y --from-paths src --ignore-src --rosdistro noetic -r --os=debia
 cd ~/ros_catkin_ws/src && for d in genmsg genpy gencpp geneus gennodejs genlisp ; do (cd "$d" && sudo pip3 install -e .); done && cd ..
 
 cd ~/ros_catkin_ws
-sudo ./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release --install-space /opt/ros/noetic -j2
+sudo src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release --install-space /opt/ros/noetic -j1 -DPYTHON_EXECUTABLE=/usr/bin/python3
 
 echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+
+mkdir -p ~/catkin_ws/src
+cd catkin_ws
+catkin_make
+echo "source /home/pi/catkin_ws/devel/setup.bash" >> ~/.bashrc
